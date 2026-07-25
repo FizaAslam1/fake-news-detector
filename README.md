@@ -8,11 +8,11 @@
 
 ## Overview
 
-**Fake News Detector** is an advanced machine learning system engineered to identify and classify misinformation with **99.5% accuracy**. Leveraging cutting-edge natural language processing (NLP) techniques and explainable artificial intelligence (LIME), this platform provides transparent, trustworthy predictions for long-form news articles where factual integrity is paramount.
+**Fake News Detector** is an advanced machine learning system engineered to identify and classify misinformation with **99.5% accuracy**. Leveraging cutting-edge natural language processing (NLP) and LIME explainability, this tool provides transparent, interpretable predictions for journalists, researchers, and content moderators.
 
 ### 🎯 Mission
 
-To combat misinformation at scale by providing journalists, researchers, and content moderators with an interpretable, production-grade AI solution that distinguishes authentic journalism from fabricated or misleading content.
+To combat misinformation at scale by providing journalists, researchers, and content moderators with an interpretable, production-grade AI solution that distinguishes authentic journalism from fabricated claims.
 
 ---
 
@@ -83,7 +83,7 @@ This detector is **purpose-built for long-form journalism** because:
 │  • N-gram frequency analysis                            │
 └──────────────────────┬──────────────────────────────────┘
                        │
-┌──────────────────────▼──────────────────────────────────���
+┌──────────────────────▼──────────────────────────────────┐
 │      Classification Model (Supervised Learning)         │
 │  • Binary classification: Real vs. Fake                 │
 │  • Probability-based confidence scoring                 │
@@ -161,7 +161,7 @@ This detector is **purpose-built for long-form journalism** because:
 
 5. **Launch Application**
    ```bash
-   streamlit run app.py
+   streamlit run appp.py
    ```
 
 6. **Access Application**
@@ -191,8 +191,8 @@ from sklearn.externals import joblib
 import lime.lime_text
 
 # Load trained model
-model = joblib.load('models/fake_news_model.pkl')
-vectorizer = joblib.load('models/tfidf_vectorizer.pkl')
+model = joblib.load('model.pkl')
+vectorizer = joblib.load('vectorizer.pkl')
 
 # Prepare text
 article_text = """
@@ -228,44 +228,15 @@ fake-news-detector/
 │
 ├── README.md                           # Project documentation
 ├── requirements.txt                    # Python dependencies
-├── setup.py                            # Package configuration
 │
-├── app.py                              # Streamlit web application
+├── appp.py                             # Streamlit web application
 │
-├── notebooks/
-│   ├── 01_exploratory_analysis.ipynb  # Data exploration & visualization
-│   ├── 02_model_training.ipynb         # Model development & validation
-│   └── 03_lime_explanations.ipynb      # Explainability deep-dive
+├── fakenews_detection.ipynb           # Complete model & notebook
 │
-├── src/
-│   ├── __init__.py
-│   ├── preprocessing.py                # Text cleaning & tokenization
-│   ├── feature_engineering.py          # TF-IDF & feature extraction
-│   ├── model.py                        # ML model wrapper
-│   └── explainer.py                    # LIME explanation utilities
+├── model.pkl                           # Trained classification model
+├── vectorizer.pkl                      # Fitted TF-IDF vectorizer
 │
-├── models/
-│   ├── fake_news_classifier.pkl        # Trained classification model
-│   ├── tfidf_vectorizer.pkl            # Fitted TF-IDF vectorizer
-│   └── model_metadata.json             # Model version & performance metrics
-│
-├── data/
-│   ├── raw/                            # Original training datasets
-│   ├── processed/                      # Cleaned, preprocessed data
-│   └── test_articles/                  # Sample articles for testing
-│
-├── tests/
-│   ├── test_preprocessing.py           # Unit tests for preprocessing
-│   ├── test_model.py                   # Model prediction tests
-│   └── test_explainer.py               # Explainability tests
-│
-├── docs/
-│   ├── API.md                          # API documentation
-│   ├── MODEL_DETAILS.md                # Technical model specifications
-│   └── DEPLOYMENT.md                   # Deployment guide
-│
-└── .streamlit/
-    └── config.toml                     # Streamlit configuration
+└── [Organized structure below can be added as needed]
 ```
 
 ---
@@ -370,16 +341,7 @@ We welcome contributions to improve the Fake News Detector!
 
 ## 📄 License
 
-This project is released under the **MIT License**. See [LICENSE](LICENSE) file for complete terms.
-
-```
-MIT License
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, and distribute...
-```
+This project is released under the **MIT License**. See LICENSE file for complete terms.
 
 ---
 
