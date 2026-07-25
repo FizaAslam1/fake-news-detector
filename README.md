@@ -3,12 +3,12 @@
 ![Banner](https://img.shields.io/badge/AI--Powered-Misinformation%20Detection-2E86AB?style=flat-square)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-306998?style=flat-square&logo=python)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Cloud-FF4B4B?style=flat-square&logo=streamlit)
-![Accuracy](https://img.shields.io/badge/Model%20Accuracy-99.5%25-28A745?style=flat-square)
+![Accuracy](https://img.shields.io/badge/Best%20Model%20Accuracy-99.5%25-28A745?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
 ## Overview
 
-**Fake News Detector** is an advanced machine learning system engineered to identify and classify misinformation with **99.5% accuracy**. Leveraging cutting-edge natural language processing (NLP) and LIME explainability, this tool provides transparent, interpretable predictions for journalists, researchers, and content moderators.
+**Fake News Detector** is a machine learning system engineered to identify and classify misinformation, benchmarked across **traditional ML and transformer-based approaches**. The best-performing model — **TF-IDF + Logistic Regression** — hits **99.5% accuracy**, outperforming a fine-tuned **BERT** model (92% accuracy) on this dataset. Paired with LIME explainability, this tool provides transparent, interpretable predictions for journalists, researchers, and content moderators.
 
 ### 🎯 Mission
 
@@ -20,7 +20,8 @@ To combat misinformation at scale by providing journalists, researchers, and con
 
 | Feature | Description |
 |---------|-------------|
-| 🤖 **99.5% Accuracy** | State-of-the-art ML model trained on diverse, labeled news datasets |
+| 🤖 **99.5% Accuracy** | Best model (TF-IDF + Logistic Regression), benchmarked against BERT |
+| ⚖️ **Traditional ML vs Transformers** | Head-to-head comparison — classical NLP beat a fine-tuned BERT model on this task |
 | 📝 **Long-Form Article Optimization** | Engineered specifically for comprehensive articles (100+ words) where claims are clearly defined |
 | 🔍 **LIME Explainability** | Transparent predictions with visual word-importance analysis—understand *why* the AI made its decision |
 | ⚡ **Real-Time Analysis** | Instant predictions with confidence scores |
@@ -35,6 +36,26 @@ To combat misinformation at scale by providing journalists, researchers, and con
 **[🔗 Access Fake News Detector](https://fake-news-detector-mkrbensp6tuvx6kigse8mx.streamlit.app/)**
 
 *No installation required—start analyzing news articles immediately.*
+
+---
+
+## 🥊 Traditional ML vs BERT: Why Classical NLP Won
+
+A common assumption is that transformer models automatically outperform "older" NLP techniques. This project tested that assumption directly — and the results say otherwise, at least for this dataset.
+
+| Approach | Accuracy | Notes |
+|----------|----------|-------|
+| **TF-IDF + Logistic Regression** ✅ | **99.5%** | Best overall — fast, interpretable, cheap to run |
+| Fine-tuned BERT | 92% | Slower, heavier, and underperformed on this dataset |
+
+### Why did the simpler model win?
+
+- **Lexical giveaways**: Fake vs. real news in this dataset is separable largely by word choice and phrasing patterns — exactly what TF-IDF captures well. BERT's contextual understanding didn't add much value when the signal is mostly lexical, not semantic.
+- **Dataset size & style bias**: Classical datasets like this one often have strong source/style artifacts (certain outlets always show up as "fake" or "real"), which linear models exploit efficiently — sometimes too efficiently.
+- **Overfitting risk**: BERT's larger capacity makes it more prone to overfitting on a dataset of this size without heavier regularization/tuning.
+- **Compute vs. payoff**: BERT took significantly longer to train and infer, for a lower accuracy — a real-world cost/benefit case for choosing the simpler model in production.
+
+**Takeaway**: Bigger/newer isn't always better. Model selection should be driven by the data and the problem, not by assumptions about which architecture is "state of the art." This comparison is intentionally included to show that reasoning, not just the winning number.
 
 ---
 
@@ -74,19 +95,25 @@ This detector is **purpose-built for long-form journalism** because:
 ┌──────────────────────▼──────────────────────────────────┐
 │      Text Preprocessing & Cleaning                       │
 │  • Lowercasing, tokenization, stopword removal          │
-│  • Special character handling, normalization            │
+│  • Special character handling, normalization             │
 └──────────────────────┬──────────────────────────────────┘
                        │
 ┌──────────────────────▼──────────────────────────────────┐
-│      Feature Extraction (TF-IDF Vectorization)          │
-│  • Unigrams, bigrams, trigrams                          │
-│  • N-gram frequency analysis                            │
+│      Feature Extraction (Two Parallel Tracks)             │
+│  • Track A: TF-IDF Vectorization (uni/bi/tri-grams)      │
+│  • Track B: BERT Tokenization + Contextual Embeddings   │
 └──────────────────────┬──────────────────────────────────┘
                        │
 ┌──────────────────────▼──────────────────────────────────┐
-│      Classification Model (Supervised Learning)         │
+│      Model Benchmarking (Classical ML vs Transformer)    │
+│  • TF-IDF → Logistic Regression, RF, XGBoost, SVM, NB   │
+│  • BERT → Fine-tuned classification head                │
 │  • Binary classification: Real vs. Fake                 │
-│  • Probability-based confidence scoring                 │
+└──────────────────────┬──────────────────────────────────┘
+                       │
+┌──────────────────────▼──────────────────────────────────┐
+│      Best Model Selected: TF-IDF + Logistic Regression   │
+│      (99.5% accuracy vs. BERT's 92%)                     │
 └──────────────────────┬──────────────────────────────────┘
                        │
 ┌──────────────────────▼──────────────────────────────────┐
@@ -106,7 +133,8 @@ This detector is **purpose-built for long-form journalism** because:
 
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
-| **ML Framework** | scikit-learn | Classification & model pipeline |
+| **Classical ML** | scikit-learn | TF-IDF, Logistic Regression, RF, XGBoost, SVM, Naive Bayes |
+| **Transformer Benchmark** | BERT (Hugging Face Transformers) | Contextual embedding baseline for comparison |
 | **NLP Engine** | NLTK, spaCy | Text preprocessing & feature engineering |
 | **Explainability** | LIME | Model-agnostic explanations |
 | **Web Framework** | Streamlit | Interactive user interface |
@@ -118,8 +146,14 @@ This detector is **purpose-built for long-form journalism** because:
 
 ## 📊 Performance Metrics
 
-| Metric | Value | Notes |
-|--------|-------|-------|
+| Model | Accuracy | Notes |
+|-------|----------|-------|
+| **TF-IDF + Logistic Regression** ✅ | **99.5%** | Deployed model — best accuracy, fastest inference |
+| Fine-tuned BERT | 92% | Benchmarked for comparison — higher compute cost, lower accuracy on this dataset |
+| Other classical combos (RF, XGBoost, SVM, NB × TF-IDF/CountVec/char n-grams) | Tested (20 combinations total) | TF-IDF + LogReg was the strongest performer |
+
+| Metric | Value (Best Model) | Notes |
+|--------|--------------------|-------|
 | **Accuracy** | 99.5% | Overall correct predictions |
 | **Precision** | High | Few false positives |
 | **Recall** | Comprehensive | Strong fake news detection |
@@ -190,7 +224,7 @@ This detector is **purpose-built for long-form journalism** because:
 from sklearn.externals import joblib
 import lime.lime_text
 
-# Load trained model
+# Load trained model (best performer: TF-IDF + Logistic Regression)
 model = joblib.load('model.pkl')
 vectorizer = joblib.load('vectorizer.pkl')
 
@@ -231,9 +265,9 @@ fake-news-detector/
 │
 ├── appp.py                             # Streamlit web application
 │
-├── fakenews_detection.ipynb           # Complete model & notebook
+├── fakenews_detection.ipynb           # Complete model & notebook (incl. BERT benchmark)
 │
-├── model.pkl                           # Trained classification model
+├── model.pkl                           # Trained classification model (TF-IDF + LogReg)
 ├── vectorizer.pkl                      # Fitted TF-IDF vectorizer
 
 ```
@@ -248,18 +282,20 @@ fake-news-detector/
 - **Sources**: News agencies, fact-check databases, academic datasets
 - **Languages**: English (primary)
 
-### Feature Engineering
+### Classical ML Track
 - **Vectorization**: TF-IDF with sublinear term frequency
 - **N-grams**: Unigrams, bigrams, trigrams
 - **Vocabulary Size**: 10,000+ unique features
-- **Dimensionality Reduction**: Sparse matrix optimization
-
-### Model Specifications
-- **Algorithm**: Logistic Regression with L2 regularization
+- **Algorithm**: Logistic Regression with L2 regularization (best of 20 combinations tested)
 - **Training**: 80/20 train-test split with stratification
 - **Validation**: Cross-validation with 5 folds
 - **Hyperparameter Tuning**: Grid search optimization
 - **Inference Time**: <100ms per article
+
+### Transformer Track (Benchmark)
+- **Model**: Fine-tuned BERT (base) with classification head
+- **Result**: 92% accuracy — lower than the classical approach on this dataset
+- **Why it's included**: To demonstrate that model choice should be evidence-driven, not assumption-driven — and to document the trade-off between compute cost and accuracy gain
 
 ### Explainability (LIME)
 - **Method**: Local Interpretable Model-Agnostic Explanations
@@ -274,6 +310,7 @@ fake-news-detector/
 ### Accuracy & Limitations
 - ⚠️ **99.5% accuracy reflects lab conditions**—real-world performance may vary
 - ⚠️ **No system is 100% accurate**—always verify critical information independently
+- ⚠️ **Dataset bias risk**: high accuracy on classical fake-news datasets can partly reflect source/style artifacts rather than pure factual reasoning — a known limitation being actively considered
 - ⚠️ **Emerging misinformation tactics** may require model retraining
 - ⚠️ **Language limitations**: Optimized for English-language articles
 
@@ -323,7 +360,7 @@ We welcome contributions to improve the Fake News Detector!
    - Include test coverage
 
 ### Contribution Areas
-- 🔧 Model improvements & optimization
+- 🔧 Model improvements & optimization (including revisiting the BERT fine-tuning setup)
 - 🌍 Support for additional languages
 - 📊 Enhanced evaluation metrics
 - 🎨 UI/UX improvements
@@ -355,6 +392,7 @@ This project is released under the **MIT License**. See LICENSE file for complet
 
 ### Libraries & Frameworks
 - [scikit-learn](https://scikit-learn.org) — ML algorithms & utilities
+- [Hugging Face Transformers](https://huggingface.co/transformers) — BERT benchmark
 - [LIME](https://github.com/marcotcr/lime) — Model explainability
 - [Streamlit](https://streamlit.io) — Interactive web applications
 - [NLTK](https://www.nltk.org) — Natural language processing
@@ -399,8 +437,8 @@ If you use Fake News Detector in your research, please cite:
 
 ## 🔮 Roadmap
 
+- [ ] Improve BERT fine-tuning (regularization, larger dataset) to close the gap with classical ML
 - [ ] Multi-language support (Spanish, French, Arabic)
-- [ ] Transfer learning with transformer models (BERT, GPT-2)
 - [ ] Real-time API for third-party integration
 - [ ] Browser extension for in-article analysis
 - [ ] Mobile application (iOS/Android)
