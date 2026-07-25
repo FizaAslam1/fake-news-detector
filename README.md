@@ -235,8 +235,7 @@ fake-news-detector/
 │
 ├── model.pkl                           # Trained classification model
 ├── vectorizer.pkl                      # Fitted TF-IDF vectorizer
-│
-└── [Organized structure below can be added as needed]
+
 ```
 
 ---
@@ -370,7 +369,7 @@ This project is released under the **MIT License**. See LICENSE file for complet
 ## 📞 Support & Community
 
 ### Get Help
-- 📖 Read the [Full Documentation](docs/)
+
 - 💬 Check [GitHub Discussions](https://github.com/FizaAslam1/fake-news-detector/discussions)
 - 🐛 Report issues on [GitHub Issues](https://github.com/FizaAslam1/fake-news-detector/issues)
 
@@ -423,7 +422,7 @@ If this project helps you, please **star the repository**! Your support motivate
 
 **Made with ❤️ for accurate information and trustworthy journalism**
 
-[🔗 Try the Live Demo](https://fake-news-detector-mkrbensp6tuvx6kigse8mx.streamlit.app/) • [📖 View Documentation](docs/) • [🐛 Report Issues](https://github.com/FizaAslam1/fake-news-detector/issues)
+[🔗 Try the Live Demo](https://fake-news-detector-mkrbensp6tuvx6kigse8mx.streamlit.app/)  • [🐛 Report Issues](https://github.com/FizaAslam1/fake-news-detector/issues)
 
 *Last Updated: July 2026*
 
