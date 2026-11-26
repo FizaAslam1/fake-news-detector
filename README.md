@@ -12,7 +12,7 @@
 
 ### 🎯 Mission
 
-To combat misinformation at scale by providing journalists, researchers, and content moderators with an interpretable, production-grade AI solution that distinguishes authentic journalism from fabricated claims.
+To combat misinformation at scale by providing journalists, researchers, and content moderators with an interpretable, production-grade AI solution that distinguishes  journalism from fabricated claims.
 
 ---
 
